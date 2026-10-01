@@ -1,0 +1,36 @@
+# Demo app secrets & runtime data
+demo_app/.env
+demo_app/.env.*
+demo_app/.streamlit/secrets.toml
+demo_app/data/
+demo_app/__pycache__/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large model / data artifacts
+*.index
+*.parquet
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# Credentials
+.env
+*.env
+secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/

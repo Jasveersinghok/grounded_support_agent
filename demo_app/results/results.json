@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "n_samples": 250,
+    "faithfulness": 0.706,
+    "answer_relevancy": 0.953,
+    "context_precision": 0.76,
+    "context_recall": 0.758,
+    "correctness_1to5": 3.82,
+    "completeness_1to5": 3.45,
+    "tone_1to5": 3.92,
+    "grounded_rate": 0.884,
+    "escalation_rate": 0.116
+  },
+  "qlora": {
+    "n_samples": 250,
+    "faithfulness": 0.627,
+    "answer_relevancy": 0.891,
+    "context_precision": 0.765,
+    "context_recall": 0.769,
+    "correctness_1to5": 3.64,
+    "completeness_1to5": 3.28,
+    "tone_1to5": 3.9,
+    "grounded_rate": 0.648,
+    "escalation_rate": 0.352
+  }
+}

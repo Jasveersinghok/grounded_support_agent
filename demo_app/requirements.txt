@@ -1,0 +1,11 @@
+streamlit
+faiss-cpu
+sentence-transformers
+pandas
+pyarrow
+groq
+pydantic
+langgraph
+
+huggingface_hub
+python-dotenv

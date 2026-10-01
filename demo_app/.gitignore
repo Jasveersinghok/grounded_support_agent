@@ -1,0 +1,32 @@
+# ── Secrets & credentials ──────────────────────────────
+.env
+.env.*
+*.env
+secrets.toml
+.streamlit/secrets.toml
+
+# ── Data files (served via HuggingFace Hub at runtime) ─
+data/
+*.index
+*.parquet
+
+# ── Python cache ────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ── OS junk ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ── Logs / scratch ──────────────────────────────────────
+*.log
+scratch/

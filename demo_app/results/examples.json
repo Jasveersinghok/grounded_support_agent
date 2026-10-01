@@ -1,0 +1,34 @@
+[
+  {
+    "query": "need help with canceling order {{Order Number}}",
+    "category": "order_management",
+    "baseline": "I understand you're having trouble canceling your order with the number {{Order Number}}. To assist you better, could you provide more details about the issues you're facing during the cancellation process? Once I have more information, I'll be able to guide you through the cancellation steps more effectively.",
+    "qlora": "I've realized that you're seeking assistance with canceling order {{Order Number}}. I apologize for any inconvenience caused. To cancel your order, please follow these steps:\n\n1. Log in to your account\n2. Navigate to 'My Orders'\n3. Find the relevant order and click 'Cancel'. If you face any issues, our team is here to help.",
+    "baseline_grounded": true,
+    "qlora_grounded": true
+  },
+  {
+    "query": "i want help canceling order {{Order Number}}",
+    "category": "order_management",
+    "baseline": "To assist you with canceling your order with the number {{Order Number}}, please follow these steps:\n\n1. Sign into your account: Visit our website and log in using your credentials.\n2. Go to your order history and locate the order.",
+    "qlora": "I'm sorry, I wasn't able to find a fully verified answer in our knowledge base. Your query has been escalated to our support team who will follow up shortly.",
+    "baseline_grounded": true,
+    "qlora_grounded": false
+  },
+  {
+    "query": "is it possible to cancel purchase {{Order Number}}?",
+    "category": "order_management",
+    "baseline": "Yes, it is possible to cancel the purchase with the order number {{Order Number}}. To proceed with the cancellation, you can log into your {{Online Company Portal Info}}, navigate to the '{{Online Order Tracking}}' section and select 'Cancel Order'.",
+    "qlora": "I've grasped that you're unsure whether it's possible to cancel purchase {{Order Number}}. Allow me to provide you with clarity on this matter. To cancel your purchase, you can follow these steps:\n\n1. Sign in to your account.\n2. Go to Order History.",
+    "baseline_grounded": true,
+    "qlora_grounded": true
+  },
+  {
+    "query": "would it be possible to cancel purchase {{Order Number}}?",
+    "category": "order_management",
+    "baseline": "I understand you're looking to cancel your purchase with the order number {{Order Number}}. Let me help you with that. Please follow these steps to cancel your purchase from our website.",
+    "qlora": "I'm sorry, I wasn't able to find a fully verified answer in our knowledge base. Your query has been escalated to our support team who will follow up shortly.",
+    "baseline_grounded": true,
+    "qlora_grounded": false
+  }
+]
