@@ -13,7 +13,7 @@ def load_store():
     if repo_id:
         from huggingface_hub import hf_hub_download
         def get_path(filename):
-            return hf_hub_download(repo_id=repo_id, filename=f"data/{filename}", repo_type="dataset")
+            return hf_hub_download(repo_id=repo_id, filename=filename, repo_type="dataset")
     else:
         def get_path(filename):
             return os.path.join(data_dir, filename)
