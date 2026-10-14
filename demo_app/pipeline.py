@@ -155,23 +155,44 @@ def generator_node(state: SupportState) -> SupportState:
     return {**state, 'draft_answer': draft, 'retry_count': retry, 'node_path': path}
 
 def _extract_json(text: str) -> dict:
+    # 1. clean parse
     try: return json.loads(text)
     except: pass
-    m = re.search(r'```(?:json)?\s*([\s\S]*?)```', text)
+    # 2. strip markdown fences
+    m = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
     if m:
         try: return json.loads(m.group(1))
         except: pass
-    m = re.search(r'\{[\s\S]*\}', text)
+    # 3. grab first {...} block (complete)
+    m = re.search(r"\{[\s\S]*\}", text)
     if m:
         try: return json.loads(m.group(0))
         except: pass
-    raise ValueError(f'No JSON in critic output: {text[:200]}')
+    # 4. truncation recovery — closing } was cut by token limit
+    snippet = re.search(r"\{[\s\S]*", text)
+    if snippet:
+        partial = snippet.group(0).rstrip()
+        if not partial.endswith("}"):
+            if partial.endswith(","):
+                partial = partial.rstrip(",")
+            if not partial.endswith(("\"", "}", "]", "true", "false", "null")) or partial.endswith(","):
+                partial = partial + "\""
+            partial = partial + "}"
+        try: return json.loads(partial)
+        except: pass
+    # 5. last-resort — scrape grounded field directly from raw text
+    g = re.search(r"\"grounded\"\s*:\s*(true|false)", text, re.I)
+    if g:
+        grounded_val = g.group(1).lower() == "true"
+        logger.warning("[Critic] fallback: grounded=%s scraped from raw text", grounded_val)
+        return {"grounded": grounded_val, "unsupported_claims": [], "reason": "Parsed from truncated output."}
+    raise ValueError(f"No JSON in critic output: {text[:200]}")
 
 def critic_node(state: SupportState) -> SupportState:
     logger.info('[Critic] evaluating draft...')
     r = _llm(messages=build_critic_messages(
                  state.get('draft_answer', ''), state.get('retrieved_chunks') or []),
-             temperature=0.0, max_tokens=512)
+             temperature=0.0, max_tokens=1024)
     raw = r.choices[0].message.content.strip()
     try:
         verdict = CriticResult(**_extract_json(raw))
@@ -278,3 +299,4 @@ def run_query(query: str):
         "latency": latency,
         "tokens": _token_counts["total"]
     }
+
