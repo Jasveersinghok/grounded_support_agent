@@ -18,7 +18,7 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 #MainMenu, footer, header { visibility: hidden; }
 
 /* ── Hero ── */
-.hero { text-align:center; padding: 2.2rem 1rem 0.6rem; }
+.hero { text-align:center; padding: 0.2rem 1rem 0.4rem; }
 .hero-title {
     font-size: 2.8rem; font-weight: 900; letter-spacing:-0.02em;
     background: linear-gradient(130deg,#818cf8 0%,#a78bfa 40%,#38bdf8 100%);
@@ -306,25 +306,21 @@ with tab_demo:
 
     # ── Centre card ────────────────────────────────────────────────────────────
     _, cc, _ = st.columns([1, 3, 1])
+    _, cc, _ = st.columns([1, 3, 1])
     with cc:
-        with st.form("query_form"):
-            st.markdown('<div class="query-card">', unsafe_allow_html=True)
+        # Dropdown
+        st.markdown('<div class="qcard-label">Choose a query from dropdown</div>', unsafe_allow_html=True)
+        selected_key = st.selectbox("", options=list(TEST_QUERIES.keys()), label_visibility="collapsed")
+        dropdown_val = TEST_QUERIES[selected_key]
 
-            # Dropdown
-            st.markdown('<div class="qcard-label">Choose a query from dropdown</div>', unsafe_allow_html=True)
-            selected_key = st.selectbox("", options=list(TEST_QUERIES.keys()), label_visibility="collapsed")
-            dropdown_val = TEST_QUERIES[selected_key]
+        st.markdown('<div style="height:0.8rem"></div>', unsafe_allow_html=True)
 
-            st.markdown('<div style="height:1.2rem"></div>', unsafe_allow_html=True)
+        # Manual input
+        st.markdown('<div class="qcard-label">Or write a manual query</div>', unsafe_allow_html=True)
+        manual_val = st.text_input("", placeholder="e.g.  How do I return an item I bought last week?", label_visibility="collapsed")
 
-            # Manual input
-            st.markdown('<div class="qcard-label">Or write a manual query</div>', unsafe_allow_html=True)
-            manual_val = st.text_input("", placeholder="e.g.  How do I return an item I bought last week?", label_visibility="collapsed")
-
-            st.markdown('<div style="height:1.4rem"></div>', unsafe_allow_html=True)
-            submitted = st.form_submit_button("▶  Run Pipeline", use_container_width=True)
-
-            st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<div style="height:0.9rem"></div>', unsafe_allow_html=True)
+        submitted = st.button("?  Run Pipeline", use_container_width=True, type="primary")
 
     # ── Resolve which query to use ─────────────────────────────────────────────
     if "query_count" not in st.session_state:
@@ -378,7 +374,7 @@ with tab_demo:
                 """, unsafe_allow_html=True)
 
                 # Internals
-                with st.expander("🔍 Pipeline Internals — Critic reasoning & retrieved chunks"):
+                with st.expander("🔍 Pipeline Internals — Critic reasoning & retrieved chunks", expanded=True):
                     if verdict.get("reason"):
                         st.markdown(f"**Critic Reason:** {verdict['reason']}")
                     if verdict.get("unsupported_claims"):
@@ -601,3 +597,4 @@ with tab_eval:
 
     except FileNotFoundError:
         st.error("results/results.json not found in results/ folder.")
+
